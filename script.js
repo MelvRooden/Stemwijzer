@@ -72,6 +72,20 @@ function checker()
     } else if (questionNumber >= subjectsLength) {
         testResult();
     } else {
+        subjects[questionNumber].parties.forEach(function(subjectParty){
+            if (buttonChoice === subjectParty["position"])
+            {
+                parties.forEach(function(party)
+                {
+                    if (party["name"] = subjectParty["name"])
+                    {
+                        console.log(addPoints + " points added to " + party["name"]);
+                        party["points"].push(addPoints);
+                    }
+                });
+            }
+        });
+        /*
         //runs through all the parties
         for (var subjectsPartiesLoop = 0; subjectsPartiesLoop >= partiesLength;)
         {
@@ -98,6 +112,7 @@ function checker()
         }
         console.log("testje");
         nextQuestion()
+        */
     }
 }
 
@@ -137,7 +152,7 @@ function previousQuestion()
 
 function testResult()
 {
-    console.log("test result");
+    console.log("run function: testResult");
     //displays result of the test
     title.innerHTML = "Test Results";
     mainBox.classList.add("w3-hide");
@@ -147,24 +162,26 @@ function testResult()
     var createH2 = document.createElement("h2");
     var createP = document.createElement("p");
 
-    for (var createLoop = 0; createLoop < partiesLength;)
+    for (var createLoop = 0; createLoop >= partiesLength;)
     {
         console.log("partiesLenght: " + partiesLength);
         createH2.setAttribute("id", "party" + createLoop);
         createH2.innerText = parties[createLoop]["name"];
-        createDiv.appendChild(createH2);
 
         createP.setAttribute("id", "party" + createLoop);
         createP.innerText = parties[createLoop]["size"];
-        createDiv.appendChild(createP);
 
         createP.setAttribute("id", "party" + createLoop);
         createP.innerText = parties[createLoop]["points"];
-        createDiv.appendChild(createP);
 
         createDiv.setAttribute("id", "party" + createLoop);
         createDiv.setAttribute("class", "w-bar-item w3-button w3-light-grey");
+
+
         resultBox.appendChild(createDiv);
+        createDiv.appendChild(createH2);
+        createDiv.appendChild(createP);
+        createDiv.appendChild(createP);
 
         createLoop++;
     }
