@@ -40,18 +40,22 @@ var nextQuestionStatus = false;
 
 function buttonFunction(choice)
 {
+    console.log("run function: buttonFunction");
     if (choice === "pro") {
         buttonChoice = "pro";
     } else if (choice === "ambivalent") {
         buttonChoice = "ambivalent";
     } else if (choice === "contra") {
         buttonChoice = "contra";
+    } else {
+        buttonChoice = "skip";
     }
     checker()
 }
 
 function count()
 {
+    console.log("run function: count");
     if (addPoints >= 3) {
         addPoints = 1;
         countButton.innerText = "Vraag telt " + addPoints + "x";
@@ -63,15 +67,23 @@ function count()
 
 function checker()
 {
+    console.log("run function: checker");
     if (questionNumber === 0 && startStatus === false)
     {
+        console.log("start");
         startButton.classList.add("w3-hide");
         mainBox.classList.remove("w3-hide");
         startStatus = true;
         nextQuestion();
+
     } else if (questionNumber >= subjectsLength) {
         testResult();
+
+    } else if (buttonChoice === "skip") {
+        nextQuestion();
+
     } else {
+        console.log("checking answer");
         subjects[questionNumber].parties.forEach(function(subjectParty){
             if (buttonChoice === subjectParty["position"])
             {
@@ -110,15 +122,15 @@ function checker()
             }
             subjectsPartiesLoop++;
         }
-        console.log("testje");
-        nextQuestion()
         */
+        nextQuestion()
     }
 }
 
 
 function nextQuestion()
 {
+    console.log("run function: nextQuestion");
     //displays the next title with the corresponding question
     if (nextQuestionStatus === true) {
         //enabled the backButton
@@ -136,6 +148,7 @@ function nextQuestion()
 
 function previousQuestion()
 {
+    console.log("run function: previousQuestion");
     questionNumber--;
 
     //displays the previous title with the corresponding question
@@ -161,28 +174,31 @@ function testResult()
     var createDiv = document.createElement("div");
     var createH2 = document.createElement("h2");
     var createP = document.createElement("p");
+    var partyNumber = 0;
 
-    for (var createLoop = 0; createLoop >= partiesLength;)
+    parties.forEach(function()
     {
-        console.log("partiesLenght: " + partiesLength);
-        createH2.setAttribute("id", "party" + createLoop);
-        createH2.innerText = parties[createLoop]["name"];
-
-        createP.setAttribute("id", "party" + createLoop);
-        createP.innerText = parties[createLoop]["size"];
-
-        createP.setAttribute("id", "party" + createLoop);
-        createP.innerText = parties[createLoop]["points"];
-
-        createDiv.setAttribute("id", "party" + createLoop);
-        createDiv.setAttribute("class", "w-bar-item w3-button w3-light-grey");
-
-
+        //creates elements
         resultBox.appendChild(createDiv);
         createDiv.appendChild(createH2);
         createDiv.appendChild(createP);
         createDiv.appendChild(createP);
 
-        createLoop++;
-    }
+        //h1
+        createH2.setAttribute("id", "party" + partyNumber);
+        createH2.innerText = parties[partyNumber]["name"];
+        //p
+        createP.setAttribute("id", "party" + partyNumber);
+        createP.innerText = parties[partyNumber]["size"];
+        //p
+        createP.setAttribute("id", "party" + partyNumber);
+        createP.innerText = parties[partyNumber]["points"];
+        //div
+        createDiv.setAttribute("id", "party" + partyNumber);
+        createDiv.setAttribute("class", "w-bar-item w3-button w3-light-grey");
+
+        partyNumber++;
+        console.log("created elements");
+    });
+    console.log(partyNumber + " Elements created");
 }
