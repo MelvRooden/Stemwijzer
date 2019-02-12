@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<div class="w3-flat-concrete w3-display-topmiddle w3-half">
+<div class="w3-display-topmiddle w3-half">
     <h1 id="title" class="w3-container w3-blue" style="width:100%">StemWijzer</h1>
 
     <button id="start" onclick="checker()" class="w3-bar-item w3-button w3-blue" style="width:100%">Start</button>
@@ -21,12 +21,12 @@
 
 
         <div id="buttonBox" class="w3-bar">
-            <button id="yes" onclick="yesButtonAdd()" class="w3-bar-item w3-button w3-green choiceButton" style="width:33.3%">Eens</button>
-            <button id="none" onclick="noneButtonAdd()" class="w3-bar-item w3-button w3-teal choiceButton" style="width:33.3%">Geen van beide</button>
-            <button id="no" onclick="noButtonAdd()" class="w3-bar-item w3-button w3-red choiceButton" style="width:33.3%">Oneens</button>
+            <button id="yes" onclick="buttonFunction()" class="w3-bar-item w3-button w3-green choiceButton" data-choice="pro" style="width:33.3%">Eens</button>
+            <button id="none" onclick="buttonFunction()" class="w3-bar-item w3-button w3-teal choiceButton" data-choice="ambivalent" style="width:33.3%">Geen van beide</button>
+            <button id="no" onclick="buttonFunction()" class="w3-bar-item w3-button w3-red choiceButton" data-choice="contra" style="width:33.3%">Oneens</button>
 
             <button id="back" onclick="previousQuestion()" class="w3-bar-item w3-button w3-blue" style="width:33.3%" disabled>Vorige vraag</button>
-            <button id="count" onclick="" class="w3-bar-item w3-button w3-blue" style="width:33.3%">Belangrijke vraag</button>
+            <button id="count" onclick="count()" class="w3-bar-item w3-button w3-blue" style="width:33.3%">Vraag telt 1x</button>
             <button id="next" onclick="nextQuestion()" class="w3-bar-item w3-button w3-blue choiceButton" data-choice="0" style="width:33.3%">Sla deze vraag over</button>
         </div>
 
