@@ -7,36 +7,64 @@
 
     <title>Stemwijzer</title>
 </head>
-<body>
+<body id="body" class="w3-light-grey">
 
-<div class="w3-display-topmiddle w3-half">
-    <h1 id="title" class="w3-container w3-blue" style="width:100%">StemWijzer</h1>
+<div class="w3-display-topmiddle w3-half w3-white" style="margin:20px 0 20px 0; padding:10px;">
 
-    <button id="start" onclick="checker()" class="w3-bar-item w3-button w3-blue" style="width:100%">Start</button>
+    <div class="w3-bar">
+        <h1 id="title" class="w3-bar-item w3-black" style="width:91.9%;">StemWijzer</h1>
+        <h1 id="config" onclick="colorFoldOut()" class="w3-bar-item w3-button w3-black" style="width:7.9%;">☼</h1>
+    </div>
 
-    <div id="mainBox" class="w3-container  w3-hide">
-        <div id="questionBox" class="w3-container w3-blue" style="height:75px">
+    <button id="start" onclick="checker()" class="w3-bar-item w3-button w3-black" style="width:100%">Start</button>
+
+    <div id="mainBox" class="w3-hide">
+        <div id="questionBox" class="w3-container" style="height:85px">
             <p id="question"></p>
         </div>
 
 
         <div id="buttonBox" class="w3-bar">
-            <button id="yes" onclick="buttonFunction()" class="w3-bar-item w3-button w3-green" data-choice="pro" style="width:33.3%">Eens</button>
-            <button id="none" onclick="buttonFunction()" class="w3-bar-item w3-button w3-teal" data-choice="ambivalent" style="width:33.3%">Geen van beide</button>
-            <button id="no" onclick="buttonFunction()" class="w3-bar-item w3-button w3-red" data-choice="contra" style="width:33.3%">Oneens</button>
+            <button id="yes" onclick="buttonFunction(this.dataset.choice)" class="w3-bar-item w3-button w3-hover-green w3-black" data-choice="pro" style="width:33.3%;">Eens</button>
+            <button id="none" onclick="buttonFunction(this.dataset.choice)" class="w3-bar-item w3-button w3-hover-blue w3-black" data-choice="ambivalent" style="width:33.3%;">Geen van beide</button>
+            <button id="no" onclick="buttonFunction(this.dataset.choice)" class="w3-bar-item w3-button w3-hover-red w3-black" data-choice="contra" style="width:33.3%;">Oneens</button>
 
-            <button id="back" onclick="previousQuestion()" class="w3-bar-item w3-button w3-blue" style="width:33.3%" disabled>Vorige vraag</button>
-            <button id="count" onclick="count()" class="w3-bar-item w3-button w3-blue" style="width:33.3%">Vraag telt 1x</button>
-            <button id="next" onclick="buttonFunction()" class="w3-bar-item w3-button w3-blue choiceButton" data-choice="skip" style="width:33.3%">Sla deze vraag over</button>
+            <button id="back" onclick="previousQuestion()" class="w3-bar-item w3-button w3-black" style="width:33.3%;" disabled>< Vorige vraag</button>
+            <button id="count" onclick="count()" class="w3-bar-item w3-button w3-hover-blue w3-black" style="width:33.3%;">Vraag telt 1x</button>
+            <button id="next" onclick="buttonFunction(this.dataset.choice)" class="w3-bar-item w3-button w3-black" data-choice="skip" style="width:33.3%;">Sla deze vraag over ></button>
         </div>
 
-        <!--<button onclick="foldout()" class="w3-bar-item w3-button w3-blue">Stampunten</button>-->
+        <button onclick="foldOut()" class="w3-bar-item w3-button w3-black" style="width:99.9%;">Stampunten</button>
     </div>
 
-    <div id="resultBox" class="w3-container  w3-hide"><!--the test result will be displayed here--></div>
+    <div id="opinionBox" class="w3-bar w3-hide"><!--the parties with their opinions on the subject will be displayed here-->
+        <ul id="opinionPro" class="w3-bar-item w3-hover-green" style="width:33.3%; list-style:none;"><li><h1>Eens</h1></li></ul>
+        <ul id="opinionAmbivalent" class="w3-bar-item w3-hover-blue" style="width:33.3%; list-style:none;"><li><h1>Geen van Beide</h1></li></ul>
+        <ul id="opinionContra" class="w3-bar-item w3-hover-red" style="width:33.3%; list-style:none;"><li><h1>Oneens</h1></li></ul>
+    </div>
+
+    <div id="resultBoxContainer" class="w3-container w3-hide">
+        <div class="w3-bar">
+            <button onclick="testResult(this.data.showParties)" class="w3-bar-item w3-button w3-black" style="width:33.3%;" data-showParties="secular">Seculaire partijen</button>
+            <button onclick="testResult(this.data.showParties)" class="w3-bar-item w3-button w3-black" style="width:33.3%;" data-showParties="all">Alle partijen</button>
+            <button onclick="testResult(this.data.showParties)" class="w3-bar-item w3-button w3-black" style="width:33.3%;" data-showParties="big">Grote patijen</button>
+        </div>
+        <ul id="resultBox"><!--the test result will be displayed here--></ul>
+    </div>
 </div>
 
-<p id="test">werkt niet</p>
+<div id="colorScheme" class="w3-container w3-black w3-display-topright w3-hide" style="width:10%; padding:20px;">
+    <b class="w3-black" style="width:100%; font-size:15px;">Achtergrond kleur</b>
+    <button class="w3-button w3-hover-white w3-black" onclick="colorChange(this.dataset.color)" data-color="white" style="width:100%;">Wit</button>
+    <button class="w3-button w3-hover-light-grey w3-black" onclick="colorChange(this.dataset.color)" data-color="light-grey" style="width:100%;">Licht Grijs</button>
+    <button class="w3-button w3-hover-grey w3-black" onclick="colorChange(this.dataset.color)" data-color="grey" style="width:100%;">Grijs</button>
+    <button class="w3-button w3-hover-blue w3-black" onclick="colorChange(this.dataset.color)" data-color="blue" style="width:100%;">Blauw</button>
+</div>
+
+<div id="alertPanel" class="w3-panel w3-red w3-hide" style="width:20%;">
+    <h4 id="alertPanelTitle">Vraag Beantwoord</h4>
+    <p id="alertPanelText">Nog ... Vragen te gaan</p>
+</div>
 
 </body>
 <script src="script.js"></script>
